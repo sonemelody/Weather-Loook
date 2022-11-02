@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/closetNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="이런 옷 어떠세요?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="28sp" />
+
+    <Button
+        android:id="@+id/tagOuter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="가디건"
+        app:layout_constraintStart_toStartOf="@id/closetNow"
+        app:layout_constraintTop_toBottomOf="@id/closetNow" />
+
+    <Button
+        android:id="@+id/tagTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="블라우스"
+        app:layout_constraintStart_toEndOf="@id/tagOuter"
+        app:layout_constraintTop_toTopOf="@id/tagOuter" />
+
+    <Button
+        android:id="@+id/tagBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="슬랙스"
+        app:layout_constraintStart_toEndOf="@id/tagTop"
+        app:layout_constraintTop_toTopOf="@id/tagOuter" />
+
+    <Button
+        android:id="@+id/tagShoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로퍼"
+        app:layout_constraintStart_toEndOf="@id/tagBottom"
+        app:layout_constraintTop_toTopOf="@id/tagOuter" />
+
+    <Button
+        android:id="@+id/tagEtc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목도리"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/tagShoes"
+        app:layout_constraintTop_toTopOf="@id/tagOuter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

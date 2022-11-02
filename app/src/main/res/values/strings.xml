@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="sunny">맑음</string>
+    <string name="cloudy">구름많음</string>
+    <string name="dark">흐림</string>
+    <string name="rain">비</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
