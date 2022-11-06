@@ -1,52 +1,39 @@
 package com.mpl.weather;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.BaseAdapter;
-import android.widget.CalendarView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.weather.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
+import com.ksy.mpl.R;
 
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout weatherLayout;
     TextView stateTextview;
     TextView tempTextView;
     ImageView weatherIcon;
-    CalendarView calenderView;
-    TextView date;
 
     private String weatherState;
     private String weatherTemp;
@@ -57,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     boolean isOpen = false;
 
-    private DrawerLayout drawer;
+    private FragmentManager fragmentManager;
+    private AddPhotoFragment addPhotoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         stateTextview = (TextView) findViewById(R.id.weatherState);
         tempTextView = (TextView) findViewById(R.id.temperature);
         weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
+
+        fragmentManager = getSupportFragmentManager();
+
+        addPhotoFragment = new AddPhotoFragment(getApplicationContext());
 
         new Thread() {
             public void run() {
@@ -112,6 +104,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.mainLayout, addPhotoFragment);
+                fragmentTransaction.addToBackStack("addPhoto");
+                fragmentTransaction.commit();
+                 */
+                addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
                 animateFab();
             }
         });
@@ -120,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 animateFab();
                 Toast.makeText(MainActivity.this, "gallery upload", Toast.LENGTH_SHORT).show();
+                addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
             }
         });
         fab2.setOnClickListener(new View.OnClickListener() {
@@ -127,63 +127,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 animateFab();
                 Toast.makeText(MainActivity.this, "take a photo", Toast.LENGTH_SHORT).show();
+                addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
             }
         });
-
-        calenderView = findViewById(R.id.calendarView);
-        date = findViewById(R.id.date);
-
-        calenderView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String todayDate = (month+1) + "/" + dayOfMonth + "/" + year;
-                Log.d("date", todayDate);
-                date.setText(todayDate);
-            }
-        });
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new calendarFragment()).commit();
-            navigationView.setCheckedItem(R.id.calendarFragment);
-        }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.calendarFragment:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new calendarFragment()).commit();
-                break;
-            case R.id.galleryFragment:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new galleryFragment()).commit();
-                break;
-        }
-
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
 
     }
 
@@ -195,25 +141,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return dataString;
     }
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(Message msg) {
             Bundle bundle = msg.getData();
             String msgString = bundle.getString("state");
             changeWeatherStateBackground(weatherState);
             tempTextView.setText(weatherTemp + "도");
+            addPhotoFragment.temperature = weatherTemp;
+            addPhotoFragment.state = weatherState;
         }
     };
 
     private void changeWeatherStateBackground(String state) {
-        if (state.equals("맑음")) {
+        if ("맑음".equals(state)) {
             weatherLayout.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.sunny));
             stateTextview.setText(getApplicationContext().getResources().getString(R.string.sunny));
             weatherIcon.setImageResource(R.drawable.sunny);
-        } else if (state.equals("흐림")) {
+        } else if ("흐림".equals(state)) {
             weatherLayout.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.dark));
             stateTextview.setText(getApplicationContext().getResources().getString(R.string.dark));
             weatherIcon.setImageResource(R.drawable.dark);
-        } else if (state.equals("구름많음")) {
+        } else if ("구름많음".equals(state)) {
             weatherLayout.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.cloudy));
             stateTextview.setText(getApplicationContext().getResources().getString(R.string.cloudy));
             weatherIcon.setImageResource(R.drawable.cloudy);
@@ -241,5 +189,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fab2.setClickable(true);
             isOpen=true;
         }
+    }
+
+    public void closeFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.remove(fragment);
+        fragmentTransaction.commit();
     }
 }
