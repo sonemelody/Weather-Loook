@@ -24,7 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.ksy.mpl.R;
+import com.mpl.weather.R;
 
 import java.io.File;
 import java.io.IOException;

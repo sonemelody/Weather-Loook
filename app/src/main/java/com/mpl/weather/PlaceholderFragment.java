@@ -8,14 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ksy.mpl.R;
+import com.mpl.weather.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class placeholder extends Fragment {
+public class PlaceholderFragment extends Fragment {
 
-    public placeholder() {
+    public PlaceholderFragment() {
         // Required empty public constructor
     }
 

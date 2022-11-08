@@ -26,7 +26,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.ksy.mpl.R;
+import com.mpl.weather.R;
 
 import org.json.JSONException;
 

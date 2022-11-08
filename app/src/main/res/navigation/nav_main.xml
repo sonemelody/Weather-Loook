@@ -3,16 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@+id/placeholder">
+    app:startDestination="@id/menuPlaceholder">
 
+    <fragment
+        android:id="@+id/menuPlaceholder"
+        android:name="com.mpl.weather.PlaceholderFragment"
+        android:label="fragment_placeholder"
+        tools:layout="@layout/fragment_placeholder" />
     <fragment
         android:id="@+id/menuCalendar"
         android:name="com.mpl.weather.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment
-        android:id="@+id/placeholder"
-        android:name="com.mpl.weather.placeholder"
-        android:label="fragment_placeholder"
-        tools:layout="@layout/fragment_placeholder" />
+        android:id="@+id/menuGallery"
+        android:name="com.mpl.weather.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
 </navigation>
