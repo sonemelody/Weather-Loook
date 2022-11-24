@@ -1,5 +1,6 @@
 package com.mpl.weather;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -7,6 +8,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,10 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.mpl.weather.R;
 
 import org.json.JSONException;
@@ -52,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private AddPhotoFragment addPhotoFragment;
+
+    private ImageView addPhoto;
+    private final DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
+    private final StorageReference reference = FirebaseStorage.getInstance().getReference();
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
             }
         });
-
     }
 
     private String[] getWeatherData(WeatherData weatherData) throws JSONException, IOException {

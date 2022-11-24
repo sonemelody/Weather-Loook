@@ -4,9 +4,17 @@
     android:layout_height="match_parent"
     tools:context="com.mpl.weather.MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="250dp"
+        android:layout_margin="20dp"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/m_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>
