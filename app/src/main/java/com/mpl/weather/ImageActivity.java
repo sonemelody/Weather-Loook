@@ -1,4 +1,4 @@
-package com.mpl.Weather;
+package com.mpl.weather;
 
 import android.os.Bundle;
 

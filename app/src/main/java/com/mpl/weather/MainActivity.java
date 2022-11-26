@@ -1,6 +1,5 @@
 package com.mpl.weather;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,7 +7,6 @@ import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,10 +26,6 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.mpl.weather.R;
 
 import org.json.JSONException;
@@ -58,11 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private AddPhotoFragment addPhotoFragment;
-
-    private ImageView addPhoto;
-    private final DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
-    private final StorageReference reference = FirebaseStorage.getInstance().getReference();
-    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
         imageSlider.setImageList(slideModels, true);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
@@ -143,22 +130,6 @@ public class MainActivity extends AppCompatActivity {
                  */
                 addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
                 animateFab();
-            }
-        });
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                animateFab();
-                Toast.makeText(MainActivity.this, "gallery upload", Toast.LENGTH_SHORT).show();
-                addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
-            }
-        });
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                animateFab();
-                Toast.makeText(MainActivity.this, "take a photo", Toast.LENGTH_SHORT).show();
-                addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
             }
         });
     }
@@ -205,18 +176,10 @@ public class MainActivity extends AppCompatActivity {
     private void animateFab() {
         if(isOpen) {
             fab.startAnimation(rotateForward);
-            fab1.startAnimation(fabClose);
-            fab2.startAnimation(fabClose);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
             isOpen=false;
         }
         else {
             fab.startAnimation(rotateBackward);
-            fab1.startAnimation(fabOpen);
-            fab2.startAnimation(fabOpen);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
             isOpen=true;
         }
     }
