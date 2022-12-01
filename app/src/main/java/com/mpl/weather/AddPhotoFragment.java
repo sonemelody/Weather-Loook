@@ -3,46 +3,52 @@ package com.mpl.weather;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
-import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AddPhotoFragment extends BottomSheetDialogFragment {
 
-    Button uploadBtn;
+    Button saveBtn;
     TextView dateText;
     TextView temperatureText;
+    ImageView addPhoto;
 
     public String temperature;
     public String state;
@@ -50,16 +56,18 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
     Fragment fragment;
     Context context;
 
-    private static final int PICK_IMAGE_REQUEST = 9544;
-    ImageView image;
-    Uri selectedImage;
-    String part_image;
+    ChipGroup upChipGroup, downChipGroup, outerChipGroup, rateChipGroup;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference userDatabase;
+    private final StorageReference reference = FirebaseStorage.getInstance().getReference();
+    private Uri imageUri;
 
     public AddPhotoFragment(Context context) {
         this.context = context;
@@ -70,11 +78,17 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_photo, container, false);
-        image = view.findViewById(R.id.photo);
 
-        uploadBtn = (Button) view.findViewById(R.id.uploadBtn);
+        saveBtn = (Button) view.findViewById(R.id.saveBtn);
         dateText = (TextView) view.findViewById(R.id.dateText);
         temperatureText = (TextView) view.findViewById(R.id.temperatureText);
+
+        upChipGroup = (ChipGroup) view.findViewById(R.id.upChipGroup);
+        downChipGroup = (ChipGroup) view.findViewById(R.id.downChipGroup);
+        outerChipGroup = (ChipGroup) view.findViewById(R.id.outerChipGroup);
+        rateChipGroup = (ChipGroup) view.findViewById(R.id.rateChipGroup);
+
+        addPhoto = (ImageView) view.findViewById(R.id.photo);
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -85,16 +99,106 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         setTemperatureText();
         //setStateBackGround(state);
 
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
+        ActivityResultLauncher<Intent> activityResult = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if( result.getResultCode() == RESULT_OK && result.getData() != null){
+                            imageUri = result.getData().getData();
+                            addPhoto.setImageURI(imageUri);
+                        }
+                    }
+                });
+
+        addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = getFragmentManager().findFragmentById(R.id.mainLayout);
-                //((MainActivity)getActivity()).closeFragment(fragment);
-                dismiss();
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/");
+                activityResult.launch(galleryIntent);
             }
         });
 
-        pick(view);
+        String uid = null;
+        User userInstance = User.getInstance(uid);
+        uid = userInstance.getUid();
+
+        userDatabase = firebaseDatabase.getReference("Users").child(uid);
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (imageUri != null) {
+                    uploadToFirebase(imageUri);
+                } else {
+                    Toast.makeText(getActivity(), "사진을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                }
+
+                Data data = new Data();
+                data.date = baseDate;
+                data.photoURL = imageUri.toString();
+                //data.rate = Integer.parseInt(rate.getText().toString());
+                data.weather = temperatureText.getText().toString();
+                userDatabase.child("data").child(baseDate).push().setValue(data);
+
+                Fashion fashion = new Fashion();
+                fashion.date = baseDate;
+                fashion.photoURL = imageUri.toString();
+
+                List<Integer> upIds = upChipGroup.getCheckedChipIds();
+                List<Integer> downIds = downChipGroup.getCheckedChipIds();
+                List<Integer> outerIds = outerChipGroup.getCheckedChipIds();
+                int rateId = rateChipGroup.getCheckedChipId();
+
+                List<Cloth> clothList = new ArrayList<>();
+
+                for (Integer id : upIds) {
+                    Chip chip = upChipGroup.findViewById(id);
+                    Cloth cloth = new Cloth("up", chip.getText().toString());
+                    clothList.add(cloth);
+                }
+
+                for (Integer id : downIds) {
+                    Chip chip = downChipGroup.findViewById(id);
+                    Cloth cloth = new Cloth("down", chip.getText().toString());
+                    clothList.add(cloth);
+                }
+
+                for (Integer id : outerIds) {
+                    Chip chip = outerChipGroup.findViewById(id);
+                    Cloth cloth = new Cloth("outer", chip.getText().toString());
+                    clothList.add(cloth);
+                }
+
+                fashion.clothList = clothList;
+
+                Chip chip = rateChipGroup.findViewById(rateId);
+                String rateContent = chip.getText().toString();
+                fashion.rate = rateContent;
+                int intTemperature = Integer.parseInt(temperatureText.getText().toString().substring(0, temperature.length() - 2));
+                if (rateContent.equals("적당함")) {
+                    //HashMap<String, Object> statisticHashMap = new HashMap();
+                    for (Cloth currentCloth: clothList) {
+                        //Statistics statistics = new Statistics((intTemperature / 5) * 5, currentCloth, 1);
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("Statistics/" + currentCloth.clothName +"(" + currentCloth.category + ")" + ", " + (intTemperature / 5) * 5 + "/wearCount", ServerValue.increment(1));
+                        userDatabase.updateChildren(updates);
+                        //wearCount 증가시키는 코드
+                        //int countType = userDatabase.child("Statistics").child(currentCloth + ", " + (intTemperature / 5) * 5 + "/wearCount").getValue();
+                        //statisticHashMap.put(currentCloth + ", " + (intTemperature / 5) * 5 + "/wearCount", 1);
+                    }
+                    //userDatabase.child("Statistics").updateChildren(statisticHashMap);
+                }
+
+                userDatabase.child("fashion").child(baseDate).push().setValue(fashion);
+
+                fragment = getFragmentManager().findFragmentById(R.id.mainLayout);
+                dismiss();
+            }
+        });
 
         return view;
     }
@@ -103,88 +207,41 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         temperatureText.setText(temperature + "도");
     }
 
-    public void setStateBackGround(String state) {
-        fragment = getFragmentManager().findFragmentById(R.id.mainLayout);
-        if ("맑음".equals(state)) {
-            fragment.getView().setBackgroundColor(getResources().getColor(R.color.sunny));
-        } else if ("흐림".equals(state)) {
-            fragment.getView().setBackgroundColor(getResources().getColor(R.color.dark));
-        } else if ("구름많음".equals(state)) {
-            fragment.getView().setBackgroundColor(getResources().getColor(R.color.cloudy));
-        } else {
-            fragment.getView().setBackgroundColor(getResources().getColor(R.color.rain));
-        }
-    }
+    private void uploadToFirebase(Uri uri) {
+        StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        //이미지 모델에 담기
+                        UploadModel model = new UploadModel(uri.toString());
 
-    public void pick(View view) {
-        verifyStoragePermissions(getActivity());
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Open Gallery"), PICK_IMAGE_REQUEST);
-    }
+                        //키로 아이디 생성
+                        //String modelId = root.push().getKey();
 
-    // Method to get the absolute path of the selected image from its URI
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                selectedImage = data.getData();                                                         // Get the image file URI
-                String[] imageProjection = {MediaStore.Images.Media.DATA};
-                Cursor cursor = getActivity().getContentResolver().query(selectedImage, imageProjection, null, null, null);
-                if(cursor != null) {
-                    cursor.moveToFirst();
-                    int indexImage = cursor.getColumnIndex(imageProjection[0]);
-                    part_image = cursor.getString(indexImage);
-                    // Get the image file absolute path
-                    Bitmap bitmap = null;
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        //데이터 넣기
+                        //root.child(modelId).setValue(model);
+
+
+                        addPhoto.setImageResource(R.drawable.ic_launcher_foreground);
                     }
-                    image.setImageBitmap(bitmap);                                                       // Set the ImageView with the bitmap of the image
-                }
+                });
             }
-        }
-    }
-
-    // Upload the image to the remote database
-    public void uploadImage(View view) {
-        File imageFile = new File(part_image);                                                          // Create a file using the absolute path of the image
-        RequestBody reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), imageFile);
-        MultipartBody.Part partImage = MultipartBody.Part.createFormData("file", imageFile.getName(), reqBody);
-        API api = RetrofitClient.getInstance().getAPI();
-        Call<ResponseBody> upload = api.uploadImage(partImage);
-        upload.enqueue(new Callback<ResponseBody>() {
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Image Uploaded", Toast.LENGTH_SHORT).show();
-                    Intent main = new Intent(getActivity(), MainActivity.class);
-                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(main);
-                }
-            }
+            public void onFailure(@NonNull Exception e) {
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "Request failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    //파일타입 가져오기
+    private String getFileExtension(Uri uri) {
+        ContentResolver cr = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
 
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
+        return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 }

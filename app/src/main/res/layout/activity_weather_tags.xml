@@ -26,26 +26,34 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/rateChipGroup"
+                app:singleSelection="true"
                 app:chipSpacingHorizontal="8dp">
                 <com.google.android.material.chip.Chip
+                    android:checkable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="추움"
+                    android:id="@+id/rateCold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
                 <com.google.android.material.chip.Chip
+                    android:checkable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="적당함"
+                    android:id="@+id/rateGood"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
                 <com.google.android.material.chip.Chip
+                    android:checkable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="더움"
+                    android:id="@+id/rateHot"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
             </com.google.android.material.chip.ChipGroup>

@@ -1,65 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/closetNow"
+        android:id="@+id/outerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="이런 옷 어떠세요?"
+        android:layout_margin="10dp"
+        android:text="아우터 선택"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="28sp" />
+        app:layout_constraintTop_toBottomOf="@+id/photo" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/tagOuter"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="가디건"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="@id/closetNow"
-        app:layout_constraintTop_toBottomOf="@id/closetNow" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/tagTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="블라우스"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@id/tagOuter"
-        app:layout_constraintTop_toBottomOf="@id/closetNow" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/tagBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="슬랙스"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@id/tagTop"
-        app:layout_constraintTop_toBottomOf="@id/closetNow" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/tagShoes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로퍼"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@id/tagBottom"
-        app:layout_constraintTop_toBottomOf="@id/closetNow" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/tagEtc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="목도리"
-        android:layout_margin="10dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/tagShoes"
-        app:layout_constraintTop_toBottomOf="@id/closetNow" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal">
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/outerChipGroup"
+            app:chipSpacingHorizontal="8dp">
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="없음"
+                android:id="@+id/outerNone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="자켓"
+                android:id="@+id/outerJacket"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="야상"
+                android:id="@+id/outerJumper"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="코트"
+                android:id="@+id/outerCoat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="가죽자켓"
+                android:id="@+id/outerLeather"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="패딩"
+                android:id="@+id/outerPadding"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="플리스"
+                android:id="@+id/outerFleece"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="후드집업"
+                android:id="@+id/outerHoodie"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="우비"
+                android:id="@+id/outerRainCoat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="무스탕"
+                android:id="@+id/outerMustang"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="조끼"
+                android:id="@+id/outerVest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="태그 추가"
+                android:id="@+id/outerAdd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+        </com.google.android.material.chip.ChipGroup>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".TagsManagementFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".TagsManagementActivity">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="태그 관리"
+                android:textSize="40sp"/>
+            <include
+                android:id="@+id/uppTags"
+                layout="@layout/activity_upp_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="원하시는 상의 태그를 추가해주세요"
+                android:textSize="25sp"/>
+            <include
+                android:id="@+id/downTags"
+                layout="@layout/activity_down_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="원하시는 하의 태그를 추가해주세요"
+                android:textSize="25sp"/>
+            <include
+                android:id="@+id/outerTags"
+                layout="@layout/activity_outer_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="원하시는 아우터 태그를 추가해주세요"
+                android:textSize="25sp"/>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

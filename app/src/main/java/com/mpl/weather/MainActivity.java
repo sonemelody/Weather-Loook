@@ -26,7 +26,6 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.mpl.weather.R;
 
 import org.json.JSONException;
 
@@ -122,12 +121,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.mainLayout, addPhotoFragment);
-                fragmentTransaction.addToBackStack("addPhoto");
-                fragmentTransaction.commit();
-                 */
                 addPhotoFragment.show(getSupportFragmentManager(), addPhotoFragment.getTag());
                 animateFab();
             }
