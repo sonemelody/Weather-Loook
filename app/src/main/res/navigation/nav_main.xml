@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/menuPlaceholder">
+    app:startDestination="@id/menuHome">
 
     <fragment
-        android:id="@+id/menuPlaceholder"
-        android:name="com.mpl.weather.PlaceholderFragment"
+        android:id="@+id/menuHome"
+        android:name="com.mpl.weather.HomeFragment"
         android:label="fragment_placeholder"
-        tools:layout="@layout/fragment_placeholder" />
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/menuCalendar"
         android:name="com.mpl.weather.CalendarFragment"

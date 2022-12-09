@@ -4,10 +4,10 @@
     <string name="cloudy">구름많음</string>
     <string name="dark">흐림</string>
     <string name="rain">비</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="profile">example</string>
+    <string name="profile">UserInfo</string>
     <string name="home">홈</string>
     <string name="calendar">날짜별 모아보기</string>
     <string name="gallery">기온별 모아보기</string>

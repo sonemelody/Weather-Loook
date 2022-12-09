@@ -16,7 +16,7 @@
             android:id="@+id/layoutToolBar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
@@ -31,43 +31,25 @@
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_menu"
                 app:tint="@color/white" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="WEATHER - LOOOK!"
+                android:textSize="30sp"
+                android:fontFamily="@font/font_title"/>
         </LinearLayout>
 
         <fragment
             android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutToolBar"
             app:navGraph="@navigation/nav_main" />
-
-        <include
-            android:id="@+id/weatherLayout"
-            layout="@layout/activity_weather"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/navHostFragment" />
-
-        <include
-            android:id="@+id/tagLayout"
-            layout="@layout/activity_tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:layout_constraintStart_toStartOf="@id/weatherLayout"
-            app:layout_constraintTop_toBottomOf="@+id/weatherLayout" />
-
-        <include
-            android:id="@+id/photoLayout"
-            layout="@layout/activity_photo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="19dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tagLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

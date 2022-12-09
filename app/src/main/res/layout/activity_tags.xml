@@ -10,7 +10,6 @@
         android:id="@+id/closetNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:text="이런 옷 어떠세요?"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -74,9 +74,7 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_photo, container, false);
 
         saveBtn = (Button) view.findViewById(R.id.saveBtn);
@@ -215,17 +213,11 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //이미지 모델에 담기
                         UploadModel model = new UploadModel(uri.toString());
 
-                        //키로 아이디 생성
-                        //String modelId = root.push().getKey();
+                        //Toast.makeText(getActivity(), "정상적으로 업로드 되었습니다.", Toast.LENGTH_SHORT).show();
 
-                        //데이터 넣기
-                        //root.child(modelId).setValue(model);
-
-
-                        addPhoto.setImageResource(R.drawable.ic_launcher_foreground);
+                        //addPhoto.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
                     }
                 });
             }
