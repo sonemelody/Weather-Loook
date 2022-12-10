@@ -43,22 +43,12 @@
         app:layout_constraintTop_toBottomOf="@id/closetNow" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/tagShoes"
+        android:id="@+id/tagAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="로퍼"
         android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@id/tagBottom"
-        app:layout_constraintTop_toBottomOf="@id/closetNow" />
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/tagEtc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="목도리"
-        android:layout_margin="10dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/tagShoes"
         app:layout_constraintTop_toBottomOf="@id/closetNow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -53,7 +54,9 @@ public class SignupActivity extends AppCompatActivity {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 String email = user.getEmail();
                                 String uid = user.getUid();
-                                String name = id;
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(id).build();
+                                user.updateProfile(profileUpdates);
+                                String name = user.getDisplayName();
 
                                 HashMap<Object, String> hashMap = new HashMap<>();
 
@@ -64,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("Users");
                                 reference.child(uid).child("userInfo").setValue(hashMap);
-                                User userInstance = User.getInstance(uid);
+                                User userInstance = User.getInstance(uid, name);
 
                                 initDatabase(reference.child(uid));
 
@@ -93,40 +96,41 @@ public class SignupActivity extends AppCompatActivity {
         String[] AccessaryClothes = {"없음", "귀걸이", "목걸이", "팔찌", "목도리", "장갑", "선글라스", "모자"};
         HashMap<String, Statistics> statisticHashMap = new HashMap();
 
-        for (int i = 0; i < upClothes.length - 1; i++) {
+        for (int i = 0; i < upClothes.length; i++) {
             String clothString = upClothes[i];
             Cloth cloth = new Cloth("up", clothString);
             clothHashMap.put(clothString + ", " + "up", cloth);
-            for (int temp = 0; temp < 40; temp += 5) {
-                statisticHashMap.put(clothString + "(up)" + ", " + temp, new Statistics(temp, cloth, 0));
+
+            for (int temp = -15; temp < 40; temp += 5) {
+                databaseReference.child("Statistics").child(String.valueOf(temp)).child("up").child(clothString).setValue(new Statistics(clothString, 0));
             }
         }
-        for (int i = 0; i < downClothes.length - 1; i++) {
+        for (int i = 0; i < downClothes.length; i++) {
             String clothString = downClothes[i];
             Cloth cloth = new Cloth("down", clothString);
             clothHashMap.put(clothString + ", " + "down", cloth);
-            for (int temp = 0; temp < 40; temp += 5) {
-                statisticHashMap.put(clothString + "(down)" + ", " + temp, new Statistics(temp, cloth, 0));
+            for (int temp = -15; temp < 40; temp += 5) {
+                databaseReference.child("Statistics").child(String.valueOf(temp)).child("down").child(clothString).setValue(new Statistics(clothString, 0));
             }
         }
-        for (int i = 0; i < outerClothes.length - 1; i++) {
+        for (int i = 0; i < outerClothes.length; i++) {
             String clothString = outerClothes[i];
             Cloth cloth = new Cloth("outer", clothString);
             clothHashMap.put(clothString + ", " + "outer", cloth);
-            for (int temp = 0; temp < 40; temp += 5) {
-                statisticHashMap.put(clothString + "(outer)" + ", " + temp, new Statistics(temp, cloth, 0));
+            for (int temp = -15; temp < 40; temp += 5) {
+                databaseReference.child("Statistics").child(String.valueOf(temp)).child("outer").child(clothString).setValue(new Statistics(clothString, 0));
             }
         }
-        for (int i = 0; i < AccessaryClothes.length - 1; i++) {
+        for (int i = 0; i < AccessaryClothes.length; i++) {
             String clothString = AccessaryClothes[i];
             Cloth cloth = new Cloth("acc", clothString);
             clothHashMap.put(clothString + ", " + "acc", cloth);
-            for (int temp = 0; temp < 40; temp += 5) {
-                statisticHashMap.put(clothString + "(acc)" + ", " + temp, new Statistics(temp, cloth, 0));
+            for (int temp = -15; temp < 40; temp += 5) {
+                databaseReference.child("Statistics").child(String.valueOf(temp)).child("acc").child(clothString).setValue(new Statistics(clothString, 0));
             }
         }
 
         databaseReference.child("Clothes").setValue(clothHashMap);
-        databaseReference.child("Statistics").setValue(statisticHashMap);
+        //databaseReference.child("Statistics").setValue(statisticHashMap);
     }
 }

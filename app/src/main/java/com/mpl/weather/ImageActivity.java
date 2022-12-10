@@ -24,7 +24,7 @@ public class ImageActivity extends AppCompatActivity {
     private ArrayList<UploadModel> list;
     ImageAdapter adapter;
 
-    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Image");
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("Users/fashion/temperature/0/photoURL");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
