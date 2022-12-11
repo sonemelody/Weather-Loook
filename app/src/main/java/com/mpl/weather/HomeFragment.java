@@ -1,5 +1,4 @@
 package com.mpl.weather;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
-    ConstraintLayout weatherLayout;
+    RelativeLayout weatherLayout;
     TextView stateTextview;
     TextView tempTextView;
     ImageView weatherIcon;
@@ -74,16 +74,21 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        weatherData = new WeatherData();
-        weatherLayout = (ConstraintLayout) view.findViewById(R.id.weatherLayout);
-        stateTextview = (TextView) view.findViewById(R.id.weatherState);
-        tempTextView = (TextView) view.findViewById(R.id.temperature);
-        weatherIcon = (ImageView) view.findViewById(R.id.weatherIcon);
+        try{
+            weatherData = new WeatherData();
+            weatherLayout = (RelativeLayout) view.findViewById(R.id.weatherLayout);
+            stateTextview = (TextView) view.findViewById(R.id.weatherState);
+            tempTextView = (TextView) view.findViewById(R.id.temperature);
+            weatherIcon = (ImageView) view.findViewById(R.id.weatherIcon);
 
-        tagOuter = (Chip) view.findViewById(R.id.tagOuter);
-        tagTop = (Chip) view.findViewById(R.id.tagTop);
-        tagBottom = (Chip) view.findViewById(R.id.tagBottom);
-        tagAcc = (Chip) view.findViewById(R.id.tagAcc);
+            tagOuter = (Chip) view.findViewById(R.id.tagOuter);
+            tagTop = (Chip) view.findViewById(R.id.tagTop);
+            tagBottom = (Chip) view.findViewById(R.id.tagBottom);
+            tagAcc = (Chip) view.findViewById(R.id.tagAcc);
+        } catch (NullPointerException e) {
+
+        }
+
 
         fragmentManager = getParentFragmentManager();
 
@@ -205,7 +210,6 @@ public class HomeFragment extends Fragment {
 
         int temp = (int) ((int) (temperature / 5) * 5);
 
-        //userDatabase = firebaseDatabase.getReference("Users").child("OVUC3LwGHlNvMFbVsFz0fVHhheu1");
         userDatabase = firebaseDatabase.getReference("Users").child(uid);
         DatabaseReference statistics = userDatabase.child("Statistics").child(String.valueOf(temp));
         DatabaseReference outers = statistics.child("outer");

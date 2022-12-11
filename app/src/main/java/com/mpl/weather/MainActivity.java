@@ -9,15 +9,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -41,7 +40,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ConstraintLayout weatherLayout;
+    RelativeLayout weatherLayout;
     TextView stateTextview;
     TextView tempTextView;
     ImageView weatherIcon;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private String weatherTemp;
     private WeatherData weatherData;
 
-    FloatingActionButton fab;
+    FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
 
     boolean isOpen = false;
@@ -70,15 +69,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         weatherData = new WeatherData();
-        weatherLayout = (ConstraintLayout) findViewById(R.id.weatherLayout);
-        stateTextview = (TextView) findViewById(R.id.weatherState);
-        tempTextView = (TextView) findViewById(R.id.temperature);
-        weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
 
-        tagOuter = (Chip) findViewById(R.id.tagOuter);
-        tagTop = (Chip) findViewById(R.id.tagTop);
-        tagBottom = (Chip) findViewById(R.id.tagBottom);
-        tagAcc = (Chip) findViewById(R.id.tagAcc);
+        try{
+            weatherData = new WeatherData();
+            weatherLayout = (RelativeLayout) findViewById(R.id.weatherLayout);
+            stateTextview = (TextView) findViewById(R.id.weatherState);
+            tempTextView = (TextView) findViewById(R.id.temperature);
+            weatherIcon = (ImageView) findViewById(R.id.weatherIcon);
+
+            tagOuter = (Chip)findViewById(R.id.tagOuter);
+            tagTop = (Chip) findViewById(R.id.tagTop);
+            tagBottom = (Chip) findViewById(R.id.tagBottom);
+            tagAcc = (Chip) findViewById(R.id.tagAcc);
+        } catch (NullPointerException e) {
+
+        }
 
         fragmentManager = getSupportFragmentManager();
 
@@ -218,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
         int temp = (int) ((int) (temperature / 5) * 5);
 
+        //userDatabase = firebaseDatabase.getReference("Users").child("OVUC3LwGHlNvMFbVsFz0fVHhheu1");
         userDatabase = firebaseDatabase.getReference("Users").child(uid);
         DatabaseReference statistics = userDatabase.child("Statistics").child(String.valueOf(temp));
         DatabaseReference outers = statistics.child("outer");

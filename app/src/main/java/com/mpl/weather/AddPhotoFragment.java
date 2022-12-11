@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +33,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mpl.weather.Cloth;
+import com.mpl.weather.Fashion;
+import com.mpl.weather.R;
+import com.mpl.weather.UploadModel;
+import com.mpl.weather.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +79,9 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_photo, container, false);
 
         saveBtn = (Button) view.findViewById(R.id.saveBtn);
@@ -148,11 +153,6 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                 data.weather = temperatureText.getText().toString();
                 userDatabase.child("data").child(baseDate).push().setValue(data);
 
-                Fashion fashion = new Fashion();
-                fashion.date = baseDate;
-                fashion.photoURL = imageUri.toString();
-                fashion.weather = temperatureText.getText().toString();
-
                 List<Integer> upIds = upChipGroup.getCheckedChipIds();
                 List<Integer> downIds = downChipGroup.getCheckedChipIds();
                 List<Integer> outerIds = outerChipGroup.getCheckedChipIds();
@@ -185,11 +185,11 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                     clothList.add(cloth);
                 }
 
-                fashion.clothList = clothList;
-
                 Chip chip = rateChipGroup.findViewById(rateId);
                 String rateContent = chip.getText().toString();
-                fashion.rate = rateContent;
+
+                Fashion fashion = new Fashion(baseDate, clothList, temperatureText.getText().toString(), rateContent, imageUri.toString());
+
                 int intTemperature = Integer.parseInt(temperatureText.getText().toString().substring(0, temperature.length() - 2));
                 if (rateContent.equals("적당함")) {
                     //HashMap<String, Object> statisticHashMap = new HashMap();
@@ -206,7 +206,7 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                     //userDatabase.child("Statistics").updateChildren(statisticHashMap);
                 }
 
-                userDatabase.child("fashion").child("date").child(baseDate).push().setValue(fashion);
+                userDatabase.child("fashion").child("date").child(baseDate).setValue(fashion);
                 userDatabase.child("fashion").child("temperature").child(String.valueOf((intTemperature / 5) * 5)).push().setValue(fashion);
 
                 fragment = getFragmentManager().findFragmentById(R.id.mainLayout);
@@ -229,13 +229,23 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        //이미지 모델에 담기
                         UploadModel model = new UploadModel(uri.toString());
+
+                        //키로 아이디 생성
+                        //String modelId = root.push().getKey();
+
+                        //데이터 넣기
+                        //root.child(modelId).setValue(model);
+
+                        //addPhoto.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
                     }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
             }
         });
     }

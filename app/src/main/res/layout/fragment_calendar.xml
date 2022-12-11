@@ -2,28 +2,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.mpl.weather.CalendarFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <CalendarView
+        <devs.mulham.horizontalcalendar.HorizontalCalendarView
             android:id="@+id/calendarView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+            app:selectorColor="@android:color/holo_red_dark"
+            app:textColorNormal="@color/purple_200"
+            app:textColorSelected="@color/purple_200" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_below="@+id/calendarView"
-            android:layout_centerHorizontal="true"
-            android:textSize="25sp"/>
-    </RelativeLayout>
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:id="@+id/calendarImage"
+                android:src="@drawable/ic_add_a_photo_black_24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="weather"
+                android:textSize="23sp"
+                android:id="@+id/weatherTextView"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rate"
+                android:textSize="23sp"
+                android:id="@+id/rateTextView"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

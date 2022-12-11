@@ -21,7 +21,7 @@
             layout="@layout/activity_tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             app:layout_constraintStart_toStartOf="@id/weatherLayout"
             app:layout_constraintTop_toBottomOf="@+id/weatherLayout" />
 

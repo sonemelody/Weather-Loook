@@ -124,14 +124,6 @@
                 android:id="@+id/outerVest"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="태그 추가"
-                android:id="@+id/outerAdd"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
 </LinearLayout>
