@@ -24,7 +24,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/upChipGroup"
             app:chipSpacingHorizontal="8dp">
+
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,6 +37,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,24 +48,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="반팔"
+                android:text="반팔티셔츠"
                 android:id="@+id/upShort"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
-                android:checkable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="원피스"
-                android:id="@+id/upOnePiece"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,15 +70,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="긴팔"
+                android:text="긴팔티셔츠"
                 android:id="@+id/upLong"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="니트"
+                android:id="@+id/upKnit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,15 +103,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
-                android:checkable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="후드티"
-                android:id="@+id/upHoodie"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,6 +114,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="후드티"
+                android:id="@+id/upHoodie"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,6 +136,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,12 +147,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="정장"
                 android:id="@+id/upFormal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="원피스"
+                android:id="@+id/upOnePiece"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
         </com.google.android.material.chip.ChipGroup>

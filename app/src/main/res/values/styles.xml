@@ -9,5 +9,10 @@
 
         <item name="android:fontFamily">@font/font_body</item>
     </style>
+
+    <style name="AppTheme.FashionChip" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
 

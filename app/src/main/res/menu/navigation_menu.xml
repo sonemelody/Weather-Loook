@@ -12,9 +12,6 @@
         <item
             android:id="@+id/menuCalendar"
             android:title="@string/calendar" />
-        <item
-            android:id="@+id/menuGallery"
-            android:title="@string/gallery" />
     </group>
 
 </menu>

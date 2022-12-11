@@ -26,6 +26,8 @@
             android:id="@+id/accChipGroup"
             app:chipSpacingHorizontal="8dp">
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,6 +37,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +48,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,6 +59,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,24 +70,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
-                android:checkable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="목도리"
-                android:id="@+id/accNeckWarm"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <com.google.android.material.chip.Chip
-                android:checkable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="장갑"
-                android:id="@+id/accGlove"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,6 +81,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
             <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="목도리"
+                android:id="@+id/accNeckWarm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
+                android:checkable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="장갑"
+                android:id="@+id/accGlove"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <com.google.android.material.chip.Chip
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:checkable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -24,12 +24,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <com.google.android.material.chip.ChipGroup
+                android:textAppearance="@style/AppTheme.FashionChip"
+                app:chipBackgroundColor="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rateChipGroup"
                 app:singleSelection="true"
                 app:chipSpacingHorizontal="8dp">
                 <com.google.android.material.chip.Chip
+                    android:textAppearance="@style/AppTheme.FashionChip"
+                    app:chipBackgroundColor="@color/colorPrimary"
                     android:checkable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,6 +43,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
                 <com.google.android.material.chip.Chip
+                    android:textAppearance="@style/AppTheme.FashionChip"
+                    app:chipBackgroundColor="@color/colorPrimary"
                     android:checkable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,6 +54,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
                 <com.google.android.material.chip.Chip
+                    android:textAppearance="@style/AppTheme.FashionChip"
+                    app:chipBackgroundColor="@color/colorPrimary"
                     android:checkable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -9,7 +9,7 @@
     <!--사진 슬라이드 갤러리-->
     <com.denzcoskun.imageslider.ImageSlider
         android:layout_width="wrap_content"
-        android:layout_height="380dp"
+        android:layout_height="450dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/slider"
         app:placeholder="@color/design_default_color_background"

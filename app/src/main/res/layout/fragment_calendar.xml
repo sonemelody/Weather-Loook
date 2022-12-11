@@ -15,33 +15,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:selectorColor="@android:color/holo_red_dark"
-            app:textColorNormal="@color/purple_200"
-            app:textColorSelected="@color/purple_200" />
+            app:textColorNormal="@color/colorPrimaryDark"
+            app:textColorSelected="@color/colorAccent" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            android:gravity="center_horizontal">
+
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/calendarImage"
-                android:src="@drawable/ic_add_a_photo_black_24dp"/>
-            <TextView
+                android:src="@drawable/add"/>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="weather"
-                android:textSize="23sp"
-                android:id="@+id/weatherTextView"
-                />
-            <TextView
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="기온: "
+                    android:textSize="25sp"
+                    android:id="@+id/weatherDefault"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="weather"
+                    android:textSize="25sp"
+                    android:id="@+id/weatherTextView" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="℃"
+                    android:textSize="25sp"
+                    android:id="@+id/weatherCel"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="rate"
-                android:textSize="23sp"
-                android:id="@+id/rateTextView"
-                />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="체감온도: "
+                    android:textSize="25sp"
+                    android:id="@+id/rateFeel" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rate"
+                    android:textSize="25sp"
+                    android:id="@+id/rateTextView" />
+            </LinearLayout>
 
         </LinearLayout>
 
