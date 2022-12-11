@@ -22,7 +22,6 @@
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5dp"
             android:src="@drawable/dark" />
-
         <TextView
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
@@ -35,11 +34,11 @@
             android:textSize="120px"/>
     </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/widgetTop">
+
         <TextView
             android:id="@+id/weatherState"
             android:layout_width="wrap_content"
@@ -49,7 +48,6 @@
             android:textColor="#FFFFFF"
             android:textSize="80px"
             android:text="@string/sunny"/>
-
         <TextView
             android:id="@+id/location"
             android:layout_width="wrap_content"
@@ -60,5 +58,4 @@
             android:textSize="40px"
             android:text="서울특별시 노원구 공릉1동"/>
     </RelativeLayout>
-
 </RelativeLayout>

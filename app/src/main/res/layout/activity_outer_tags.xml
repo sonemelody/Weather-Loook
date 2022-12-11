@@ -20,11 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/outerChipGroup"
             app:chipSpacingHorizontal="8dp">
+
             <com.google.android.material.chip.Chip
                 android:textAppearance="@style/AppTheme.FashionChip"
                 app:chipBackgroundColor="@color/colorPrimary"

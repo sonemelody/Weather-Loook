@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private String weatherTemp;
     private WeatherData weatherData;
 
-    FloatingActionButton fab, fab1, fab2;
+    FloatingActionButton fab;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
 
     boolean isOpen = false;
@@ -223,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
 
         int temp = (int) ((int) (temperature / 5) * 5);
 
-        //userDatabase = firebaseDatabase.getReference("Users").child("OVUC3LwGHlNvMFbVsFz0fVHhheu1");
         userDatabase = firebaseDatabase.getReference("Users").child(uid);
         DatabaseReference statistics = userDatabase.child("Statistics").child(String.valueOf(temp));
         DatabaseReference outers = statistics.child("outer");
@@ -248,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int count = 0;
                 String string = "";
-                Boolean isChanged = false;
+
                 for (int i = 0; i < clothes.length; i++) {
                     int currentCount = dataSnapshot.child(clothes[i]).child("wearCount").getValue(Integer.class);
 
@@ -258,26 +256,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     tag.setText(string);
                 }
-
-                if (!isChanged) {
-                    int clothesLength = clothes.length - 1;
-                    if (clothes[clothesLength].equals("니트")) {
-                        tag.setText("후드티");
-                    } else if (clothes[clothesLength].equals("스커트")) {
-                        tag.setText("청바지");
-                    } else if (clothes[clothesLength].equals("조끼")) {
-                        tag.setText("패딩");
-                    } else if (clothes[clothesLength].equals("모자")) {
-                        tag.setText("목도리");
-                    }
-
-                }
-
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
                 Log.d("failed change tags", "Failed to read value.", error.toException());
             }
         });

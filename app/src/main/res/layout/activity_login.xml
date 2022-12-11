@@ -48,7 +48,6 @@
         android:inputType="textPassword"
         android:id="@+id/passwordText"
         android:layout_margin="10dp"/>
-
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
@@ -82,5 +81,4 @@
             android:id="@+id/toSignUp"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
-
 </LinearLayout>

@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent" />
-
         <include
             android:id="@+id/tagLayout"
             layout="@layout/activity_tags"
@@ -23,7 +22,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/weatherLayout"
             app:layout_constraintTop_toBottomOf="@+id/weatherLayout" />
-
         <include
             android:id="@+id/photoLayout"
             layout="@layout/activity_photo"
@@ -33,5 +31,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tagLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

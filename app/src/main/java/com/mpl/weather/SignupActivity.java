@@ -131,6 +131,5 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         databaseReference.child("Clothes").setValue(clothHashMap);
-        //databaseReference.child("Statistics").setValue(statisticHashMap);
     }
 }

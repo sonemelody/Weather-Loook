@@ -7,10 +7,10 @@
     tools:context="com.mpl.weather.AddPhotoFragment"
     android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,7 +25,6 @@
                 android:textSize="40sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/temperatureText"
                 android:layout_width="wrap_content"
@@ -37,7 +36,6 @@
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
@@ -48,7 +46,6 @@
                 android:alpha="0.7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateText" />
-
             <include
                 android:id="@+id/uppTags"
                 layout="@layout/activity_upp_tags"
@@ -56,7 +53,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photo" />
-
             <include
                 android:id="@+id/downTags"
                 layout="@layout/activity_down_tags"
@@ -71,7 +67,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/downTags" />
-
             <include
                 android:id="@+id/accTags"
                 layout="@layout/activity_acc_tags"
@@ -79,7 +74,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/outerTags" />
-
             <include
                 android:id="@+id/weatherTags"
                 layout="@layout/activity_weather_tags"
@@ -87,7 +81,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/accTags" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

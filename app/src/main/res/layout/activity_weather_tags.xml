@@ -19,10 +19,12 @@
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <com.google.android.material.chip.ChipGroup
                 android:textAppearance="@style/AppTheme.FashionChip"
                 app:chipBackgroundColor="@color/colorPrimary"

@@ -35,11 +35,6 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.mpl.weather.Cloth;
-import com.mpl.weather.Fashion;
-import com.mpl.weather.R;
-import com.mpl.weather.UploadModel;
-import com.mpl.weather.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,7 +76,6 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_photo, container, false);
 
         saveBtn = (Button) view.findViewById(R.id.saveBtn);
@@ -100,10 +94,8 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         Date date = new Date(now);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String baseDate = dateFormat.format(date);
-
         dateText.setText(baseDate);
         setTemperatureText();
-        //setStateBackGround(state);
 
         ActivityResultLauncher<Intent> activityResult = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -134,12 +126,10 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
         id = userInstance.getId();
 
         userDatabase = firebaseDatabase.getReference("Users").child(uid);
-        //userDatabase = firebaseDatabase.getReference("Users").child("OVUC3LwGHlNvMFbVsFz0fVHhheu1");
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (imageUri != null) {
                     uploadToFirebase(imageUri);
                 } else {
@@ -149,7 +139,6 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                 Data data = new Data();
                 data.date = baseDate;
                 data.photoURL = imageUri.toString();
-                //data.rate = Integer.parseInt(rate.getText().toString());
                 data.weather = temperatureText.getText().toString();
                 userDatabase.child("data").child(baseDate).push().setValue(data);
 
@@ -192,18 +181,11 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
 
                 int intTemperature = Integer.parseInt(temperatureText.getText().toString().substring(0, temperature.length() - 2));
                 if (rateContent.equals("적당함")) {
-                    //HashMap<String, Object> statisticHashMap = new HashMap();
                     for (Cloth currentCloth: clothList) {
-                        //Statistics statistics = new Statistics((intTemperature / 5) * 5, currentCloth, 1);
                         Map<String, Object> updates = new HashMap<>();
-                        //updates.put("Statistics/" + currentCloth.clothName +"(" + currentCloth.category + ")" + ", " + (intTemperature / 5) * 5 + "/wearCount", ServerValue.increment(1));
                         updates.put("Statistics/" + (intTemperature / 5) * 5 + "/" + currentCloth.category + "/" + currentCloth.clothName + "/wearCount", ServerValue.increment(1));
                         userDatabase.updateChildren(updates);
-                        //wearCount 증가시키는 코드
-                        //int countType = userDatabase.child("Statistics").child(currentCloth + ", " + (intTemperature / 5) * 5 + "/wearCount").getValue();
-                        //statisticHashMap.put(currentCloth + ", " + (intTemperature / 5) * 5 + "/wearCount", 1);
                     }
-                    //userDatabase.child("Statistics").updateChildren(statisticHashMap);
                 }
 
                 userDatabase.child("fashion").child("date").child(baseDate).setValue(fashion);
@@ -213,7 +195,6 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
-
         return view;
     }
 
@@ -229,28 +210,17 @@ public class AddPhotoFragment extends BottomSheetDialogFragment {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //이미지 모델에 담기
                         UploadModel model = new UploadModel(uri.toString());
-
-                        //키로 아이디 생성
-                        //String modelId = root.push().getKey();
-
-                        //데이터 넣기
-                        //root.child(modelId).setValue(model);
-
-                        //addPhoto.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
                     }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
             }
         });
     }
 
-    //파일타입 가져오기
     private String getFileExtension(Uri uri) {
         ContentResolver cr = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

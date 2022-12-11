@@ -14,7 +14,7 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:selectorColor="@android:color/holo_red_dark"
+            app:selectorColor="@color/colorAccent"
             app:textColorNormal="@color/colorPrimaryDark"
             app:textColorSelected="@color/colorAccent" />
 
@@ -25,14 +25,15 @@
             android:gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/calendarImage"
-                android:src="@drawable/add"/>
+                android:layout_width="350dp"
+                android:layout_height="500dp"
+                android:src="@drawable/add" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,13 +47,8 @@
                     android:text="weather"
                     android:textSize="25sp"
                     android:id="@+id/weatherTextView" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="℃"
-                    android:textSize="25sp"
-                    android:id="@+id/weatherCel"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -70,9 +66,6 @@
                     android:textSize="25sp"
                     android:id="@+id/rateTextView" />
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

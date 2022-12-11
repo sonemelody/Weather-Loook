@@ -42,17 +42,12 @@ public class WeatherData extends Thread {
         urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode(type, "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8"));	/* 타입 *//* 타입 */
-        /* 타입 */
 
-        /*
-         * GET방식으로 전송해서 파라미터 받아오기
-         */
         URL url = new URL(urlBuilder.toString());
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        //System.out.println("Response code: " + conn.getResponseCode());
 
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
@@ -71,21 +66,15 @@ public class WeatherData extends Thread {
         conn.disconnect();
         String result= sb.toString();
 
-        //=======이 밑에 부터는 json에서 데이터 파싱해 오는 부분이다=====//
-
-        // response 키를 가지고 데이터를 파싱
         JSONObject jsonObj_1 = new JSONObject(result);
         String response = jsonObj_1.getString("response");
 
-        // response 로 부터 body 찾기
         JSONObject jsonObj_2 = new JSONObject(response);
         String body = jsonObj_2.getString("body");
 
-        // body 로 부터 items 찾기
         JSONObject jsonObj_3 = new JSONObject(body);
         String items = jsonObj_3.getString("items");
 
-        // items로 부터 itemlist 를 받기
         JSONObject jsonObj_4 = new JSONObject(items);
         JSONArray jsonArray = jsonObj_4.getJSONArray("item");
 
@@ -119,7 +108,6 @@ public class WeatherData extends Thread {
                 }
             }
         }
-
         return new String[] {weatherState, weatherTemp.toString()};
     }
 }

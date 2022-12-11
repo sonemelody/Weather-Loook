@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -70,8 +69,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         try{
@@ -89,7 +86,6 @@ public class HomeFragment extends Fragment {
 
         }
 
-
         fragmentManager = getParentFragmentManager();
 
         addPhotoFragment = new AddPhotoFragment(getActivity());
@@ -103,10 +99,10 @@ public class HomeFragment extends Fragment {
         ImageSlider imageSlider = view.findViewById(R.id.slider);
 
         List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://i.pinimg.com/originals/21/42/0b/21420b241e3d4bb084c9200ff50c947a.jpg"));
-        slideModels.add(new SlideModel("https://i.pinimg.com/originals/29/54/e0/2954e0d566fa420c1a449c04b4123464.jpg"));
-        slideModels.add(new SlideModel("https://i.pinimg.com/originals/fb/2e/c3/fb2ec3b24144c92a25ce186fbe509bf2.jpg"));
-        slideModels.add(new SlideModel("https://i.pinimg.com/originals/e6/ae/44/e6ae4467903e271f31f4e0d64ce29f69.jpg"));
+        slideModels.add(new SlideModel("https://i.pinimg.com/564x/24/b4/f1/24b4f10ed87ca9ce15d8fd0a99da4d54.jpg"));
+        slideModels.add(new SlideModel("https://i.pinimg.com/564x/2b/0f/29/2b0f291b78281ffe20c720bd1a100f24.jpg"));
+        slideModels.add(new SlideModel("https://i.pinimg.com/564x/92/a8/fd/92a8fdf46e086529b8e9c78227c60891.jpg"));
+        slideModels.add(new SlideModel("https://i.pinimg.com/564x/90/d3/6a/90d36af2b63b08596a923ce5792b0838.jpg"));
         imageSlider.setImageList(slideModels, true);
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -234,30 +230,15 @@ public class HomeFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int count = 0;
                 String string = "";
-                boolean isChanged = false;
+
                 for (int i = 0; i < clothes.length; i++) {
                     int currentCount = dataSnapshot.child(clothes[i]).child("wearCount").getValue(Integer.class);
 
                     if (currentCount > count) {
                         count = currentCount;
                         string = clothes[i];
-                        isChanged = true;
                     }
                     tag.setText(string);
-                }
-
-                if (!isChanged) {
-                    int clothesLength = clothes.length - 1;
-                    if (clothes[clothesLength].equals("니트")) {
-                        tag.setText("후드티");
-                    } else if (clothes[clothesLength].equals("스커트")) {
-                        tag.setText("청바지");
-                    } else if (clothes[clothesLength].equals("조끼")) {
-                        tag.setText("패딩");
-                    } else if (clothes[clothesLength].equals("모자")) {
-                        tag.setText("목도리");
-                    }
-
                 }
             }
 
